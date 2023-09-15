@@ -21,6 +21,7 @@ export default {
     UserItem,
   },
   inject: ['teams', 'users'],
+  props: ['teamId'],
   data() {
     return {
       teamName: '',
@@ -28,8 +29,7 @@ export default {
     };
   },
   methods: {
-    loadTeamMembers(route) {
-      const teamId = route.params.teamId;
+    loadTeamMembers(teamId) {
       const selectedIeam = this.teams.find((team) => team.id === teamId);
       const members = selectedIeam.members;
       const selectedMembers = [];
@@ -42,11 +42,12 @@ export default {
     },
   },
   created() {
-    this.loadTeamMembers(this.$route);
+    this.loadTeamMembers(this.teamId);
+    console.log(this.$route.query);
   },
   watch: {
-    $route(newRoute) {
-      this.loadTeamMembers(newRoute);
+    teamId(newId) {
+      this.loadTeamMembers(newId);
     },
   },
 };
