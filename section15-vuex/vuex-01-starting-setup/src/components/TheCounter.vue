@@ -6,14 +6,14 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-//     counter() {
-//       //   return this.$store.state.counter;
-//       return this.$store.getters.finalCouter;
-//     },
+    //     counter() {
+    //       //   return this.$store.state.counter;
+    //       return this.$store.getters.finalCouter;
+    //     },
 
     // mapgetters gives you an object, which we merge into the
     // computed properties object
-    ...mapGetters(['finalCouter'])
+    ...mapGetters('numbers', ['finalCouter']),
   },
 };
 </script>
