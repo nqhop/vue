@@ -15,26 +15,25 @@
           <strong>{{ qty }}</strong>
         </div>
       </div>
-      <div class="item__total">Total: ${{ itemTotal }}</div>
-      <button @click="remove">Remove</button>
+      <div class="item__total">Total: {{ this.$store.getters['cart/totalSum'].toFixed(2) }}</div>
+      <button @click="this.$store.dispatch('cart/removeFromCart', {productId: this.prodId})">Remove</button>
     </div>
   </li>
 </template>
 
 <script>
 export default {
-  inject: ['removeProductFromCart'],
   props: ['prodId', 'title', 'image', 'price', 'qty'],
   computed: {
-    itemTotal() {
-      return (this.price * this.qty).toFixed(2);
-    }
+    // itemTotal() {
+    //   return (this.price * this.qty).toFixed(2);
+    // }
   },
-  methods: {
-    remove() {
-      this.removeProductFromCart(this.prodId);
-    }
-  }
+  // methods: {
+  //   remove() {
+  //     this.removeProductFromCart(this.prodId);
+  //   }
+  // }
 };
 </script>
 
