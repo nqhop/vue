@@ -24,14 +24,19 @@ export default {
   methods: {
     addToCart() {
       this.$store.dispatch('cart/addToCart', {
-        product: {
-          id: this.id,
-          image: this.image,
-          title: this.title,
-          price: this.price,
-        },
+        idProduct: this.id,
       });
     },
+    // addToCart() {
+    //   this.$store.dispatch('cart/addToCart', {
+    //     product: {
+    //       id: this.id,
+    //       image: this.image,
+    //       title: this.title,
+    //       price: this.price,
+    //     },
+    //   });
+    // },
   },
 };
 </script>
