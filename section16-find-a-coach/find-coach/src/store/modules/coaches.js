@@ -13,7 +13,7 @@ export default {
           categories: ["c1", "c2", "c3"],
         },
         {
-          id: "c1",
+          id: "c2",
           firstName: "Angela",
           lastName: "Ya",
           desc: "Developer and Lead Instructor",
@@ -28,13 +28,14 @@ export default {
     coaches(state) {
       return state.coaches;
     },
-    categories(state, payload) {
-      
-      state.coaches.array.forEach((element) => {
-        console.log(element)
-        
-        if (element.id == payload) return element.categories;
-      });
+    categories: (state) => (id) => {
+      console.log("demo");
+      console.log(state)
+      console.log("payload" + id);
     },
+
+    // getDataById: (state, getters, rootState) => (id) => {
+    //   // Access state, getters, rootState, and additional data
+    //   return state.data.find(item => item.id === id && item.category === rootState.category);
   },
 };

@@ -13,7 +13,7 @@
       <p class="categories">cate</p>
       
       <ul>
-        <li v-for="category in this.$store.getters['coaches/categories']" :key="category">
+        <li v-for="category in this.$store.getters['coaches/categories'](1)" :key="category">
         <base-button></base-button>
         </li>
       </ul>
