@@ -1,37 +1,52 @@
 <template>
-  <div :style="btnStyles">{{ name }}</div>
+  <div class="btn">{{ name }}</div>
 </template>
 
 <script>
 export default {
   props: {
-    bgColor: {
-      type: String,
-      default: "rgb(117, 49, 196)",
-    },
     cursor: {
-      default: "none",
+      default: "pointer",
     },
     name: {
       type: String,
       default: "Button",
     },
-  },
-  computed: {
-    btnStyles() {
-      return {
-        "background-color": this.bgColor,
-        cursor: this.cursor,
-      };
+    bgColorFrom: {
+      default: "#7b81ec",
+    },
+    bgColorTo: {
+      default: "#3bd1d3",
     },
   },
 };
 </script>
 
 <style scoped>
-div {
+.btn {
   display: inline-block;
-  padding: 8px 20px;
-  border-radius: 16px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  transition: 0.5s;
+  box-shadow: 0 0 20px #eee;
+  background-size: 200% auto;
+
+
+  cursor: v-bind(cursor);
+  background-image: linear-gradient(
+    to right,
+    /* #f6d365 0%,
+    #fda085 51%,
+    #f6d365 100% */ 
+    
+    v-bind(bgColorFrom) 0%,
+    v-bind(bgColorTo) 100%
+  );
 }
+.btn:hover {
+  background-position: right center; /* change the direction of the change here */
+}
+
 </style>

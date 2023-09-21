@@ -10,7 +10,7 @@ export default {
           desc: "AWS certified, Professional Web Developer and Instructor",
           rate: 5.0,
           image: "instructor1.jpg",
-          categories: ["c1", "c2", "c3"],
+          categories: ["c2", "c3"],
         },
         {
           id: "c2",
@@ -29,13 +29,18 @@ export default {
       return state.coaches;
     },
     categories: (state) => (id) => {
-      console.log("demo");
-      console.log(state)
-      console.log("payload" + id);
+      console.log("payload:" + id);
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          let data = ["cc"];
+          state.coaches.forEach((element) => {
+            if (element.id == id) {
+              data = element.categories;
+            }
+          });
+          resolve(data);
+        }, 1000);
+      });
     },
-
-    // getDataById: (state, getters, rootState) => (id) => {
-    //   // Access state, getters, rootState, and additional data
-    //   return state.data.find(item => item.id === id && item.category === rootState.category);
   },
 };

@@ -13,8 +13,7 @@
         :rate="coach.rate"
         :image="coach.image"
       >
-        </coach-item
-      >
+      </coach-item>
     </ul>
     <base-button bgColor="red" cursor="pointer"></base-button>
   </base-container>
@@ -33,7 +32,26 @@ export default {
     CategoriesList,
     BaseButton,
   },
+  mounted() {
+    // set color for categories
+    let categories = this.$store.getters["categoties/categories"];
+    categories = categories.map((el) => el.id);
+    console.log(categories);
+    const globalColor = this.$store.getters.globalColor;
+    const max = globalColor.length - 1;
+    let colors = [];
+    categories.forEach((e) => {
+      colors.push({id: e, from: numberInRange(max, 0), to: numberInRange(max, 0) });
+    });
+    this.$store.commit("categoties/setColors", colors);
+    console.log(this.$store.getters["categoties/colors"]);
+    console.log(this.$store.getters['categoties/colorsById']('c2'));
+  },
 };
+
+function numberInRange(max, min) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 </script>
 
 <style scoped>
