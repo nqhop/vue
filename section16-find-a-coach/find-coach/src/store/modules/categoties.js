@@ -35,7 +35,7 @@ export default {
   },
   mutations: {
     changeCheckedCategories(state, payload) {
-      console.log(payload);
+      console.log("changeCheckedCategories",payload);
       state.checkedCategories = payload;
     },
     setColors(state, payload) {

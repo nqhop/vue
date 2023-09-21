@@ -39,8 +39,11 @@ export default {
             }
           });
           resolve(data);
-        }, 1000);
+        }, 0);
       });
+    },
+    categoriesType2: (state) => (id) => {
+      return state.coaches.find((item) => item.id === id).categories;
     },
   },
 };

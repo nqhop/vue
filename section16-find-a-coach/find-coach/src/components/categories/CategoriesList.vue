@@ -4,16 +4,15 @@
     <ul>
       <li v-for="category in categories" :key="category.id">
         <input
-        type="checkbox"
-        :id="category.id"
-        :value="category.id"
-        v-model="checked"
-        :checked=checked.includes(category.id)
+          type="checkbox"
+          :id="category.id"
+          :value="category.id"
+          v-model="checked"
+          :checked="checked.includes(category.id)"
         />
         <label :for="category.id">{{ category.name }}</label>
       </li>
     </ul>
-    <!-- <p>{{ this.$store.getters["categoties/checkedCategories"] }}</p> -->
   </div>
 </template>
 
@@ -21,12 +20,15 @@
 export default {
   data() {
     return {
-      checked: this.$store.getters["categoties/checkedCategories"],
+      // checked: this.$store.getters["categoties/checkedCategories"],
     };
   },
   computed: {
     categories() {
       return this.$store.getters["categoties/categories"];
+    },
+    checked() {
+      return this.$store.getters["categoties/checkedCategories"];
     },
   },
   watch: {

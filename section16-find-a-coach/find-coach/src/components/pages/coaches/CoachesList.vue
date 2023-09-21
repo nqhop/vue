@@ -3,19 +3,23 @@
     <categories-list></categories-list>
   </base-container>
   <base-container>
+    <base-button name="Refresh" @click="refresh"></base-button>
     <ul>
-      <coach-item
+      <div
         v-for="coach in this.$store.getters['coaches/coaches']"
         :key="coach.id"
-        :id="coach.id"
-        :firstName="coach.firstName"
-        :lastName="coach.lastName"
-        :rate="coach.rate"
-        :image="coach.image"
       >
-      </coach-item>
+        <coach-item
+          v-if="checkFindCoach(coach.id)"
+          :id="coach.id"
+          :firstName="coach.firstName"
+          :lastName="coach.lastName"
+          :rate="coach.rate"
+          :image="coach.image"
+        >
+        </coach-item>
+      </div>
     </ul>
-    <base-button bgColor="red" cursor="pointer"></base-button>
   </base-container>
 </template>
 
@@ -41,11 +45,41 @@ export default {
     const max = globalColor.length - 1;
     let colors = [];
     categories.forEach((e) => {
-      colors.push({id: e, from: numberInRange(max, 0), to: numberInRange(max, 0) });
+      colors.push({
+        id: e,
+        from: numberInRange(max, 0),
+        to: numberInRange(max, 0),
+      });
     });
     this.$store.commit("categoties/setColors", colors);
-    console.log(this.$store.getters["categoties/colors"]);
-    console.log(this.$store.getters['categoties/colorsById']('c2'));
+
+    // test
+    // console.log(this.$store.getters["categoties/colors"]);
+    // console.log(this.$store.getters["categoties/colorsById"]("c2"));
+  },
+  methods: {
+    checkFindCoach(coachId) {
+      const categoriesOfCoach =
+        this.$store.getters["coaches/categoriesType2"](coachId);
+      const checkedCategories =
+        this.$store.getters["categoties/checkedCategories"];
+
+      for (let i = 0; i < categoriesOfCoach.length; i++) {
+        for (let j = 0; j < checkedCategories.length; j++) {
+          if (categoriesOfCoach[i] == checkedCategories[j]) return true;
+        }
+      }
+    },
+    refresh() {
+      let categories = this.$store.getters["categoties/categories"];
+      categories = categories.map((item) => item.id);
+      this.$store.commit("categoties/changeCheckedCategories", categories);
+
+      console.log(
+        "refresh",
+        this.$store.getters["categoties/checkedCategories"]
+      );
+    },
   },
 };
 
@@ -57,5 +91,8 @@ function numberInRange(max, min) {
 <style scoped>
 li {
   list-style: none;
+}
+.coachItem {
+  margin-top: 16px;
 }
 </style>

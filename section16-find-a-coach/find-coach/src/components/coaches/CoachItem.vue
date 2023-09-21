@@ -1,26 +1,34 @@
 <template>
-  <li class="wrapper">
-    <div class="img">
-      <img :src="require(`@/assets/avatars/${image}`)" alt="" />
+  <div class="main">
+    <li class="wrapper">
+      <div class="img">
+        <img :src="require(`@/assets/avatars/${image}`)" alt="" />
+      </div>
+      <div class="info">
+        <p class="name">{{ firstName }} {{ lastName }}</p>
+        <p class="rate">{{ rate }} Instructor Rating</p>
+        <ul>
+          <li
+            v-for="categoryId in categories"
+            :key="categoryId"
+            class="categoriesList"
+          >
+            <base-button
+              :name="getNameOfCategoriesById(categoryId)"
+              :bgColorFrom="getColor(categoryId).from"
+              :bgColorTo="getColor(categoryId).to"
+              cursor="auto"
+            />
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <div class="contactAndDetails">
+      <base-button class="contact" name="Contact"></base-button>
+      <base-button name="View Details"></base-button>
     </div>
-    <div class="info">
-      <p class="name">{{ firstName }}</p>
-      <p class="rate">{{ rate }} Instructor Rating</p>
-      <ul>
-        <li
-          v-for="categoryId in categories"
-          :key="categoryId"
-          class="categoriesList"
-        >
-          <base-button
-            :name="getNameOfCategoriesById(categoryId)"
-            :bgColorFrom="getColor(categoryId).from"
-            :bgColorTo="getColor(categoryId).to"
-          />
-        </li>
-      </ul>
-    </div>
-  </li>
+  </div>
 </template>
 <script>
 import BaseButton from "../ui/BaseButton.vue";
@@ -50,7 +58,6 @@ export default {
 
       const colorFrom = this.$store.getters.globalColor[colorInfo.from];
       const colorTo = this.$store.getters.globalColor[colorInfo.to];
-      console.log(colorInfo.from);
       return { from: colorFrom, to: colorTo };
     },
   },
@@ -66,10 +73,18 @@ ul {
 li {
   list-style: none;
 }
-.wrapper {
+.main {
+  border: 1.5px solid rgb(117, 49, 196);
   padding: 16px 8px;
   border-radius: 8px;
-  border: 1.5px solid rgb(117, 49, 196);
+  margin-top: 16px;
+}
+.main::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.wrapper {
   display: flex;
 }
 .img {
@@ -81,11 +96,11 @@ li {
   border-radius: 50%;
 }
 .info {
-  background-color: pink;
   margin-left: 16px;
   position: relative;
 }
 .name {
+  font-weight: bold;
   font-size: 24px;
   margin-bottom: 8px;
 }
@@ -94,5 +109,12 @@ li {
 }
 .categoriesList {
   margin: 0 16px;
+}
+.contactAndDetails {
+  float: right;
+  margin-top: 16px;
+}
+.contactAndDetails .contact {
+  margin-right: 16px;
 }
 </style>

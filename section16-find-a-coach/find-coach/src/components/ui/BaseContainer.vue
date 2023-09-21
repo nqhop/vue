@@ -12,7 +12,7 @@
   justify-content: center;
 }
 .main {
-  min-width: 650px;
+  min-width: 750px;
 
   margin: 32px auto;
   padding: 16px;
