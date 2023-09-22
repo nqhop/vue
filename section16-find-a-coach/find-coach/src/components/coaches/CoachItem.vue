@@ -18,6 +18,7 @@
               :bgColorFrom="getColor(categoryId).from"
               :bgColorTo="getColor(categoryId).to"
               cursor="auto"
+              :uppercase="true"
             />
           </li>
         </ul>

@@ -3,7 +3,10 @@
     <categories-list></categories-list>
   </base-container>
   <base-container>
-    <base-button name="Refresh" @click="refresh"></base-button>
+    <div class="refreshAndRegister">
+      <base-button name="Refresh" @click="refresh"></base-button>
+      <base-button name="Register as Coach" @click="register"></base-button>
+    </div>
     <ul>
       <div
         v-for="coach in this.$store.getters['coaches/coaches']"
@@ -80,6 +83,9 @@ export default {
         this.$store.getters["categoties/checkedCategories"]
       );
     },
+    register() {
+      this.$router.push("/register");
+    },
   },
 };
 
@@ -94,5 +100,9 @@ li {
 }
 .coachItem {
   margin-top: 16px;
+}
+.refreshAndRegister {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
