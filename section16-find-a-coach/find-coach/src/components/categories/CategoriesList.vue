@@ -20,19 +20,20 @@
 export default {
   data() {
     return {
-      // checked: this.$store.getters["categoties/checkedCategories"],
+      checked: this.$store.getters["categoties/checkedCategories"],
     };
   },
   computed: {
     categories() {
       return this.$store.getters["categoties/categories"];
     },
-    checked() {
-      return this.$store.getters["categoties/checkedCategories"];
-    },
+    // checked() {
+    //   return this.$store.getters["categoties/checkedCategories"];
+    // },
   },
   watch: {
     checked(value) {
+      console.log("watch -> checked");
       this.$store.commit("categoties/changeCheckedCategories", value);
     },
   },

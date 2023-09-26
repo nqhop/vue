@@ -62,10 +62,14 @@ export default {
   },
   methods: {
     checkFindCoach(coachId) {
+      console.log("coachId: ", coachId);
+      // return false;
       const categoriesOfCoach =
         this.$store.getters["coaches/categoriesType2"](coachId);
       const checkedCategories =
         this.$store.getters["categoties/checkedCategories"];
+
+      console.log("categoriesOfCoach: ", categoriesOfCoach);
 
       for (let i = 0; i < categoriesOfCoach.length; i++) {
         for (let j = 0; j < checkedCategories.length; j++) {
