@@ -45,5 +45,23 @@ export default {
     categoriesType2: (state) => (id) => {
       return state.coaches.find((item) => item.id === id).categories;
     },
+    getCoachById: (state) => (id) => {
+      console.log("getCoachById: ", id);
+      return state.coaches.find((item) => item.id === id);
+    },
+  },
+  mutations: {
+    registerCoach(state, payload) {
+      state.coaches.push({
+        id: new Date().toISOString(),
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        desc: payload.desc,
+        rate: payload.rate,
+        image: "instructor1.jpg",
+        categories: payload.exertise,
+      });
+      console.log("registerCoach: ", state.coaches);
+    },
   },
 };

@@ -90,10 +90,13 @@ export default {
   },
   methods: {
     submitForm() {
-      console.log("firstName: " + this.firstName);
-      console.log("lastName: " + this.lastName);
-      console.log("desc: " + this.lastName);
-      console.log("exertise: " + this.exertise);
+      this.$store.commit("coaches/registerCoach", {
+        firstName: this.firstName,
+        lastName: this.lastName,
+        desc: this.desc,
+        rating: this.rating,
+        exertise: this.exertise,
+      });
     },
   },
   mounted() {

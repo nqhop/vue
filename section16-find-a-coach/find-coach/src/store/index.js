@@ -1,11 +1,13 @@
 import { createStore } from "vuex";
 import categoties from "./modules/categoties";
 import coaches from "./modules/coaches";
+import requests from "./modules/requests";
 
 const store = createStore({
   modules: {
     categoties: categoties,
     coaches: coaches,
+    requests: requests,
   },
   state() {
     return {
@@ -18,7 +20,7 @@ const store = createStore({
         "#79f391",
         "#525a69",
         "#898dda",
-      ],  
+      ],
     };
   },
   getters: {

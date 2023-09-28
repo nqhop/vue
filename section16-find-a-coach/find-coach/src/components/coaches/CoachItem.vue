@@ -26,7 +26,11 @@
     </li>
 
     <div class="contactAndDetails">
-      <base-button class="contact" name="Contact"></base-button>
+      <base-button
+        class="contact"
+        name="Contact"
+        @click="contact"
+      ></base-button>
       <base-button name="View Details"></base-button>
     </div>
   </div>
@@ -60,6 +64,9 @@ export default {
       const colorFrom = this.$store.getters.globalColor[colorInfo.from];
       const colorTo = this.$store.getters.globalColor[colorInfo.to];
       return { from: colorFrom, to: colorTo };
+    },
+    contact() {
+      this.$router.push("/contact/" + this.id);
     },
   },
 };
