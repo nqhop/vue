@@ -1,7 +1,6 @@
 export default {
   login() {},
   async signup(context, payload) {
-    console.log('signup ', payload);
     const response = await fetch(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDL_yZ9A2Zou2EHSE95ecf9JDMjZ6sYUfI',
       {
@@ -15,10 +14,12 @@ export default {
     );
 
     const responseData = await response.json();
-    console.log('responseData: ', responseData);
     if (!response.ok) {
-      console.log(responseData);
-      // const error = new Error(responseData.message || 'Failed to authenticate.');
+      console.log('responseData: ', responseData.error.message);
+      // console.log(responseData);
+      const error = new Error(responseData.error.message);
+      return error;
     }
+    return responseData;
   },
 };

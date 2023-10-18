@@ -1,6 +1,12 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <base-card>
+  <base-dialog :show="error" title="An error accurred" @close="handleError">
+    <p>{{ error }}</p>
+  </base-dialog>
+  <base-dialog :show="isLoading" title="Autenticating..." fixed>
+    <base-spinner></base-spinner
+  ></base-dialog>
+  <base-card>
+    <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
         <input type="email" id="email" v-model="email" />
@@ -13,23 +19,33 @@
         Please enter a valid email and password (must be at least 6 characters
         long).
       </p>
-      <base-button>Login</base-button>
+      <base-button>{{ baseButtonMode }}</base-button>
       <base-button type="button" mode="flat" @click="switchAuthMode"
         >Signup instead</base-button
       >
-    </base-card>
-  </form>
+    </form>
+  </base-card>
 </template>
 
 <script>
+import BaseDialog from '../../components/ui/BaseDialog.vue';
+import BaseSpinner from '../../components/ui/BaseSpinner.vue';
 export default {
+  components: { BaseSpinner, BaseDialog },
   data() {
     return {
       email: '',
       password: '',
       formIsvalid: true,
       mode: 'signup',
+      isLoading: false,
+      error: null,
     };
+  },
+  computed: {
+    baseButtonMode() {
+      return this.mode == 'login' ? 'Login' : 'Sign Up';
+    },
   },
   methods: {
     submitForm() {
@@ -43,22 +59,44 @@ export default {
         return;
       }
 
-      if (this.mode == 'login') {
-        console.log('login');
-      } else {
-        console.log('submitForm');
-        // this.$store.dispatch({
-        //   type: 'auth/signup',
-        //   value: { email: this.email, password: this.password },
-        // });
+      this.isLoading = true;
 
-        this.$store.dispatch('signup', {
-          email: this.email,
-          password: this.password,
-        });
+      try {
+        if (this.mode == 'login') {
+          console.log('login');
+        } else {
+          console.log('sign up');
+          // this.$store.dispatch({
+          //   type: 'auth/signup',
+          //   value: { email: this.email, password: this.password },
+          // });
+
+          this. $store
+            .dispatch('signup', {
+              email: this.email,
+              password: this.password,
+            })
+            .then((response) => {
+              console.log('response-', response.toString());
+              if (response.toString().includes('EMAIL_EXISTS')) {
+                this.error = 'Email exist';
+              }
+            });
+        }
+      } catch (err) {
+        console.log('err ', err);
+        this.error = err.meddage || 'Faild to authenticate, try later';
+        console.log('submitForm error', this.error);
       }
+
+      this.isLoading = false;
     },
-    switchAuthMode() {},
+    switchAuthMode() {
+      this.mode = this.mode == 'login' ? 'signup' : 'login';
+    },
+    handleError() {
+      this.error = null;
+    },
   },
 };
 </script>
