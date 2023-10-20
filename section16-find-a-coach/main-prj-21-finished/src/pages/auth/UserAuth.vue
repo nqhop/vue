@@ -6,7 +6,7 @@
     <base-spinner></base-spinner
   ></base-dialog>
   <base-card>
-    <form @submit.prevent="submitForm">
+    <!-- <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
         <input type="email" id="email" v-model="email" />
@@ -23,7 +23,8 @@
       <base-button type="button" mode="flat" @click="switchAuthMode"
         >Signup instead</base-button
       >
-    </form>
+    </form> -->
+    he
   </base-card>
 </template>
 
@@ -35,7 +36,7 @@ export default {
   data() {
     return {
       email: '',
-      password: '',
+      password: '123456',
       formIsvalid: true,
       mode: 'signup',
       isLoading: false,
@@ -48,7 +49,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsvalid = true;
       if (
         this.email === '' ||
@@ -59,29 +60,20 @@ export default {
         return;
       }
 
+      const actionPayload = {
+        email: this.email,
+        password: this.password,
+      };
+
       this.isLoading = true;
 
       try {
         if (this.mode == 'login') {
           console.log('login');
+          await this.$store.dispatch('login', actionPayload);
         } else {
           console.log('sign up');
-          // this.$store.dispatch({
-          //   type: 'auth/signup',
-          //   value: { email: this.email, password: this.password },
-          // });
-
-          this. $store
-            .dispatch('signup', {
-              email: this.email,
-              password: this.password,
-            })
-            .then((response) => {
-              console.log('response-', response.toString());
-              if (response.toString().includes('EMAIL_EXISTS')) {
-                this.error = 'Email exist';
-              }
-            });
+          await this.$store.dispatch('signup', actionPayload);
         }
       } catch (err) {
         console.log('err ', err);
