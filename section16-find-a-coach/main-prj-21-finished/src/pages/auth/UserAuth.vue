@@ -6,7 +6,7 @@
     <base-spinner></base-spinner
   ></base-dialog>
   <base-card>
-    <!-- <form @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-mail</label>
         <input type="email" id="email" v-model="email" />
@@ -23,8 +23,7 @@
       <base-button type="button" mode="flat" @click="switchAuthMode"
         >Signup instead</base-button
       >
-    </form> -->
-    he
+    </form>
   </base-card>
 </template>
 
@@ -35,7 +34,7 @@ export default {
   components: { BaseSpinner, BaseDialog },
   data() {
     return {
-      email: '',
+      email: 'nguyenquochop@gmail.com',
       password: '123456',
       formIsvalid: true,
       mode: 'signup',
@@ -75,6 +74,8 @@ export default {
           console.log('sign up');
           await this.$store.dispatch('signup', actionPayload);
         }
+        const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+        this.$router.replace(redirectUrl);
       } catch (err) {
         console.log('err ', err);
         this.error = err.meddage || 'Faild to authenticate, try later';
