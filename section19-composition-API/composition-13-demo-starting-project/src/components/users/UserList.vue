@@ -17,7 +17,6 @@
     </ul>
   </base-container>
 </template>
-
 <script>
 import UserItem from './UserItem.vue';
 
