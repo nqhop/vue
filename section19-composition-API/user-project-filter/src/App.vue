@@ -1,22 +1,42 @@
 <template>
   <main>
-    <user-list :users="activeUsers" />
-    <!-- <user-list /> -->
+    <user-list :users="activeUsers" @listProjects="selectUser" />
+    <project-list :userProps="selectedUser" />
   </main>
 </template>
 
 <script>
 import UserList from "./components/users/UserList.vue";
+import ProjectList from "./components/projects/ProjectList.vue";
 import USER_DATA from "./dummy-data.js";
+import { ref } from "vue";
 
 export default {
   name: "App",
   components: {
     UserList,
+    ProjectList,
   },
   data() {
     return {
-      activeUsers: USER_DATA,
+      // activeUsers: USER_DATA,
+    };
+  },
+  setup() {
+    const activeUsers = ref(USER_DATA);
+    const selectedUser = ref(null);
+
+    function selectUser(value) {
+      // console.log("selectUser - value: ", activeUsers.value);
+      selectedUser.value = activeUsers.value.find(
+        (element) => element.id == value
+      );
+      // console.log("selectUser: ", selectedUser.value);
+    }
+    return {
+      activeUsers,
+      selectUser,
+      selectedUser,
     };
   },
 };

@@ -3,8 +3,12 @@
     <h2>Active Users</h2>
     <base-search @selectedValue="selectedUsers" />
     <div>
-      <button @click="sort('asc')" :class="{selected: sorting == 'asc'}">Sort Ascending</button>
-      <button @click="sort('desc')" :class="{selected: sorting == 'desc'}">Sort Descending</button>
+      <button @click="sort('asc')" :class="{ selected: sorting == 'asc' }">
+        Sort Ascending
+      </button>
+      <button @click="sort('desc')" :class="{ selected: sorting == 'desc' }">
+        Sort Descending
+      </button>
     </div>
     <ul>
       <user-item
@@ -12,6 +16,7 @@
         :key="user.id"
         :user-name="user.fullName"
         :id="user.id"
+        @listProjects="$emit('listProjects', $event)"
       />
     </ul>
   </base-container>
@@ -79,7 +84,7 @@ export default {
       availableUsers,
       sort,
       displayedUsers,
-      sorting
+      sorting,
     };
   },
 
