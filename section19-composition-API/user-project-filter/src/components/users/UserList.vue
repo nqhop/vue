@@ -35,7 +35,7 @@ export default {
     const sorting = ref(null);
 
     function selectedUsers(value) {
-      enteredSearchTerm.value = value;
+      enteredSearchTerm.value = value.toLowerCase();
       console.log("selectedUsers", enteredSearchTerm.value);
     }
 

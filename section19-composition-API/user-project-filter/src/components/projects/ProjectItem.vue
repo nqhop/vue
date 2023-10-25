@@ -11,5 +11,14 @@ export default {
 </script>
 
 <style scoped>
+li{
+    background-color: #00006b;
+    color: white;
+    margin: 16px 0;
+}
+li h3{
+    margin: 0;
+    padding: 8px;
+}
     
 </style>
