@@ -28,10 +28,13 @@ export default {
     context.commit('addRequest', newRequest);
   },
   async fetchRequests(context) {
-    const coachId = context.rootGetters.userId;
+    const coachId = context.rootGetters.getUserId;
+    const token = context.rootGetters.token;
+    console.log('coachId in fetchRequest :', coachId);
     const response = await fetch(
       // `https://vue-http-demo-85e9e.firebaseio.com/requests/${coachId}.json`
-      `https://findcoach-971b7-default-rtdb.asia-southeast1.firebasedatabase.app/requests/${coachId}.json`
+      `https://findcoach-971b7-default-rtdb.asia-southeast1.firebasedatabase.app/requests/${coachId}.json?auth=` +
+        token
     );
     const responseData = await response.json();
     console.log('coachId ', coachId);

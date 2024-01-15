@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import StoredResources from './StoredResources.vue';
+// import StoredResources from './StoredResources.vue';
 // import AddResource from './AddResource.vue';
 
 export default {
   components: {
-    StoredResources,
+    // StoredResources,
     // AddResource,
   },
   data() {

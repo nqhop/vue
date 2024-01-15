@@ -34,8 +34,8 @@ export default {
   components: { BaseSpinner, BaseDialog },
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'nguyenquochop@gmail.com',
+      password: '123456',
       formIsvalid: true,
       mode: 'signup',
       isLoading: false,
@@ -48,7 +48,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsvalid = true;
       if (
         this.email === '' ||
@@ -59,30 +59,23 @@ export default {
         return;
       }
 
+      const actionPayload = {
+        email: this.email,
+        password: this.password,
+      };
+
       this.isLoading = true;
 
       try {
         if (this.mode == 'login') {
           console.log('login');
+          await this.$store.dispatch('login', actionPayload);
         } else {
           console.log('sign up');
-          // this.$store.dispatch({
-          //   type: 'auth/signup',
-          //   value: { email: this.email, password: this.password },
-          // });
-
-          this. $store
-            .dispatch('signup', {
-              email: this.email,
-              password: this.password,
-            })
-            .then((response) => {
-              console.log('response-', response.toString());
-              if (response.toString().includes('EMAIL_EXISTS')) {
-                this.error = 'Email exist';
-              }
-            });
+          await this.$store.dispatch('signup', actionPayload);
         }
+        const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+        this.$router.replace(redirectUrl);
       } catch (err) {
         console.log('err ', err);
         this.error = err.meddage || 'Faild to authenticate, try later';

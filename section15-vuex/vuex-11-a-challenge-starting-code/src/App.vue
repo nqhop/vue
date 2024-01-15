@@ -8,25 +8,20 @@ import TheHeader from './components/nav/TheHeader.vue';
 
 export default {
   components: {
-    TheHeader
+    TheHeader,
   },
   data() {
-    return {
-
-    };
+    return {};
   },
-  methods: {
-    
-    
-  },
-
+  methods: {},
 
   //test
-  mounted(){
+  mounted() {
     this.$store.commit('login');
-    console.log("userIsAuthenticated:"+this.$store.getters.userIsAuthenticated);
-
-  }
+    console.log(
+      'userIsAuthenticated:' + this.$store.getters.userIsAuthenticated
+    );
+  },
 };
 </script>
 

@@ -20,6 +20,6 @@ app.component('base-badge', BaseBadge);
 app.component('base-spinner', BaseSpinner);
 app.component('base-dialog', BaseDialog);
 
-app.config.warnHandler = () => null;
+// app.config.warnHandler = () => null;
 
 app.mount('#app');
